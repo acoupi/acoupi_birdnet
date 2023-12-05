@@ -1,0 +1,32 @@
+[project]
+name = "acoupi_birdnet"
+version = "0.1.0"
+description = "An acoupi-compatible BirdNET model implementation"
+authors = [
+    {name = "Santiago Martinez", email = "santiago.balvanera.20@ucl.ac.uk"},
+]
+dependencies = [
+    "tflite>=2.10.0",
+    "librosa>=0.10.1",
+    "birdnetlib>=0.13.1",
+    "tflite-runtime>=2.14.0",
+]
+requires-python = ">=3.9,<3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "acoupi @ file:///home/santiago/Software/iot/acoupi",
+    "pytest>=7.4.3",
+]
+
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.9"
