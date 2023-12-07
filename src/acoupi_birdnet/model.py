@@ -37,35 +37,38 @@ class BirdNET(types.Model):
 
         high_freq = recording.samplerate / 2
 
+        # Convert the raw detections to a list of detections
+        detections = [
+            data.Detection(
+                probability=detection["confidence"],
+                location=data.BoundingBox.from_coordinates(
+                    detection["start_time"],
+                    0,
+                    detection["end_time"],
+                    high_freq,
+                ),
+                tags=[
+                    data.PredictedTag(
+                        tag=data.Tag(
+                            key="species",
+                            value=detection["scientific_name"],
+                        ),
+                        probability=detection["confidence"],
+                    ),
+                    data.PredictedTag(
+                        tag=data.Tag(
+                            key="common name",
+                            value=detection["common_name"],
+                        ),
+                        probability=detection["confidence"],
+                    ),
+                ],
+            )
+            for detection in birdnet_recording.detections
+        ]
+
         return data.ModelOutput(
             name_model="BirdNET",
             recording=recording,
-            detections=[
-                data.Detection(
-                    probability=detection["confidence"],
-                    location=data.BoundingBox.from_coordinates(
-                        detection["start_time"],
-                        0,
-                        detection["end_time"],
-                        high_freq,
-                    ),
-                    tags=[
-                        data.PredictedTag(
-                            tag=data.Tag(
-                                key="species",
-                                value=detection["scientific_name"],
-                            ),
-                            probability=detection["confidence"],
-                        ),
-                        data.PredictedTag(
-                            tag=data.Tag(
-                                key="common name",
-                                value=detection["common_name"],
-                            ),
-                            probability=detection["confidence"],
-                        ),
-                    ],
-                )
-                for detection in birdnet_recording.detections
-            ],
+            detections=detections,
         )
