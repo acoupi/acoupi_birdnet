@@ -3,6 +3,7 @@ name = "acoupi_birdnet"
 version = "0.1.0"
 description = "An acoupi-compatible BirdNET model implementation"
 authors = [
+    {name = "Aude Vuilliomenet", email = "aude.vuilliomenet.18@ucl.ac.uk"}, 
     {name = "Santiago Martinez", email = "santiago.balvanera.20@ucl.ac.uk"},
 ]
 dependencies = [
@@ -21,7 +22,7 @@ build-backend = "pdm.backend"
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "acoupi @ file:///Users/audevuilliomenet/Documents/venv_acoupi/acoupi",
+    "acoupi @ file:///home/pi/acoupi",
     "pytest>=7.4.3",
 ]
 
