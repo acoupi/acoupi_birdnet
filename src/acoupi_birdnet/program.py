@@ -9,14 +9,14 @@ from acoupi.components import types
 from acoupi.programs.base import AcoupiProgram
 from acoupi.programs.workers import AcoupiWorker, WorkerConfig
 
-from acoupi_birdnet.configuration import BatDetect2_ConfigSchema
+from acoupi_birdnet.configuration import BirdNETConfigSchema
 from acoupi_birdnet.model import BirdNET
 
 
-class BatDetect2_Program(AcoupiProgram):
-    """BatDetect2 Program."""
+class BirdNETProgram(AcoupiProgram):
+    """BirdNET Program."""
 
-    config: BatDetect2_ConfigSchema
+    config: BirdNETConfigSchema
 
     worker_config: Optional[WorkerConfig] = WorkerConfig(
         workers=[
@@ -32,7 +32,7 @@ class BatDetect2_Program(AcoupiProgram):
         ],
     )
 
-    def setup(self, config: BatDetect2_ConfigSchema):
+    def setup(self, config: BirdNETConfigSchema):
         self.validate_dirs(config)
 
         microphone = config.microphone_config
@@ -119,7 +119,7 @@ class BatDetect2_Program(AcoupiProgram):
             schedule=datetime.timedelta(seconds=10),
         )
 
-    def check(self, config: BatDetect2_ConfigSchema):
+    def check(self, config: BirdNETConfigSchema):
         self.recorder.check()
 
         messengers = self.create_messenger(config)
@@ -127,7 +127,7 @@ class BatDetect2_Program(AcoupiProgram):
             if hasattr(messenger, "check"):
                 messenger.check()  # type: ignore
 
-    def validate_dirs(self, config: BatDetect2_ConfigSchema):
+    def validate_dirs(self, config: BirdNETConfigSchema):
         """Validate Stores Directories."""
         for path in [
             config.audio_directories.audio_dir,
@@ -140,7 +140,7 @@ class BatDetect2_Program(AcoupiProgram):
                 path.mkdir(parents=True)
 
     def create_recording_conditions(
-        self, config: BatDetect2_ConfigSchema
+        self, config: BirdNETConfigSchema
     ) -> List[types.RecordingCondition]:
         """Create Recording Conditions."""
         timezone = pytz.timezone(config.timezone)
@@ -157,7 +157,7 @@ class BatDetect2_Program(AcoupiProgram):
         ]
 
     def create_detection_cleaners(
-        self, config: BatDetect2_ConfigSchema
+        self, config: BirdNETConfigSchema
     ) -> List[types.ModelOutputCleaner]:
         """Create Detection Cleaners."""
         return [
@@ -167,7 +167,7 @@ class BatDetect2_Program(AcoupiProgram):
         ]
 
     def create_file_filters(
-        self, config: BatDetect2_ConfigSchema
+        self, config: BirdNETConfigSchema
     ) -> List[types.RecordingSavingFilter]:
         """Create File Filters."""
         if not config.recording_saving:
@@ -243,7 +243,7 @@ class BatDetect2_Program(AcoupiProgram):
 
     def create_summariser(
         self,
-        config: BatDetect2_ConfigSchema,
+        config: BirdNETConfigSchema,
     ) -> List[types.Summariser]:
         """Create summarisers."""
         if not config.summariser_config:
@@ -282,7 +282,7 @@ class BatDetect2_Program(AcoupiProgram):
 
     def create_messenger(
         self,
-        config: BatDetect2_ConfigSchema,
+        config: BirdNETConfigSchema,
     ) -> List[types.Messenger]:
         """Create Messengers - Send Detection Results."""
         # Main Messenger will send messages to remote server.

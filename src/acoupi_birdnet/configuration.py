@@ -103,12 +103,12 @@ class HTTP_MessageConfig(BaseModel):
     content_type: str = "application-json"
 
 
-class BatDetect2_ConfigSchema(BaseModel):
-    """BatDetect2 Configuration Schematic."""
+class BirdNETConfigSchema(BaseModel):
+    """BirdNET Configuration Schematic."""
 
     tmp_path: Annotated[Path, NoUserPrompt] = TEMP_PATH
 
-    name: str = "batdetect2"
+    name: str = "BirdNET"
 
     detection_threshold: float = 0.2
 
