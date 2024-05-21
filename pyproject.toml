@@ -25,6 +25,8 @@ build-backend = "hatchling.build"
 dev-dependencies = [
     "acoupi @ file://../acoupi",
     "pytest>=7.4.3",
+    "pyright>=1.1.363",
+    "ruff>=0.4.4",
 ]
 
 [tool.pyright]
