@@ -286,7 +286,7 @@ class BirdNETProgram(AcoupiProgram):
     ) -> List[types.Messenger]:
         """Create Messengers - Send Detection Results."""
         # Main Messenger will send messages to remote server.
-        if not config.mqtt_message_config and not config.http_message_config:
+        if not config.mqtt_config and not config.http_config:
             raise UserWarning(
                 "No messengers defined - no messages will be sent."
             )
@@ -295,34 +295,34 @@ class BirdNETProgram(AcoupiProgram):
 
         """MQTT Messenger - Will send messages to a MQTT broker."""
         if (
-            config.mqtt_message_config is not None
-            and config.mqtt_message_config.client_password != "guest_password"
+            config.mqtt_config is not None
+            and config.mqtt_config.client_password != "guest_password"
         ):
             messengers.append(
                 components.MQTTMessenger(
-                    host=config.mqtt_message_config.host,
-                    port=config.mqtt_message_config.port,
-                    password=config.mqtt_message_config.client_password,
-                    username=config.mqtt_message_config.client_username,
-                    topic=config.mqtt_message_config.topic,
-                    clientid=config.mqtt_message_config.clientid,
+                    host=config.mqtt_config.host,
+                    port=config.mqtt_config.port,
+                    password=config.mqtt_config.client_password,
+                    username=config.mqtt_config.client_username,
+                    topic=config.mqtt_config.topic,
+                    clientid=config.mqtt_config.clientid,
                 )
             )
 
         if (
-            config.http_message_config is not None
-            and config.http_message_config.client_password != "guest_password"
+            config.http_config is not None
+            and config.http_config.client_password != "guest_password"
         ):
             messengers.append(
                 components.HTTPMessenger(
-                    base_url=config.http_message_config.baseurl,
+                    base_url=config.http_config.baseurl,
                     base_params={
-                        "client-id": config.http_message_config.client_id,
-                        "password": config.http_message_config.client_password,
+                        "client-id": config.http_config.client_id,
+                        "password": config.http_config.client_password,
                     },
                     headers={
-                        "Accept": config.http_message_config.content_type,
-                        "Authorization": config.http_message_config.api_key,
+                        "Accept": config.http_config.content_type,
+                        "Authorization": config.http_config.api_key,
                     },
                 )
             )

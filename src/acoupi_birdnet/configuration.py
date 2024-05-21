@@ -34,7 +34,7 @@ class RecordingSchedule(BaseModel):
 class SaveRecordingFilter(BaseModel):
     """Recording saving options configuration."""
 
-    starttime: datetime.time = datetime.time(hour=9, minute=30, second=0)
+    starttime: datetime.time = datetime.time(hour=5, minute=30, second=0)
 
     endtime: datetime.time = datetime.time(hour=20, minute=30, second=0)
 
@@ -62,7 +62,7 @@ class AudioDirectories(BaseModel):
 class Summariser(BaseModel):
     """Summariser configuration."""
 
-    interval: Optional[float] = None  # interval in minutes
+    interval: Optional[float] = 10  # interval in minutes
 
     low_band_threshold: Optional[float] = None
 
@@ -142,9 +142,10 @@ class BirdNETConfigSchema(BaseModel):
         default_factory=Summariser,
     )
 
-    mqtt_message_config: Optional[MQTT_MessageConfig] = Field(
+    mqtt_config: Optional[MQTT_MessageConfig] = Field(
         default_factory=MQTT_MessageConfig,
     )
-    http_message_config: Optional[HTTP_MessageConfig] = Field(
+
+    http_config: Optional[HTTP_MessageConfig] = Field(
         default_factory=HTTP_MessageConfig,
     )
