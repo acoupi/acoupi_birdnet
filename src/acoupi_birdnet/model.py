@@ -1,6 +1,5 @@
 """Acoupi-compatible Model that runs BirdNET."""
 
-
 from acoupi import data
 from acoupi.components import types
 from birdnetlib import Recording
@@ -70,5 +69,32 @@ class BirdNET(types.Model):
         return data.ModelOutput(
             name_model="BirdNET",
             recording=recording,
-            detections=detections,
+            detections=[
+                data.Detection(
+                    detection_probability=detection["confidence"],
+                    location=data.BoundingBox.from_coordinates(
+                        detection["start_time"],
+                        0,
+                        detection["end_time"],
+                        high_freq,
+                    ),
+                    tags=[
+                        data.PredictedTag(
+                            tag=data.Tag(
+                                key="species",
+                                value=detection["scientific_name"],
+                            ),
+                            classification_probability=detection["confidence"],
+                        ),
+                        data.PredictedTag(
+                            tag=data.Tag(
+                                key="common name",
+                                value=detection["common_name"],
+                            ),
+                            classification_probability=detection["confidence"],
+                        ),
+                    ],
+                )
+                for detection in birdnet_recording.detections
+            ],
         )

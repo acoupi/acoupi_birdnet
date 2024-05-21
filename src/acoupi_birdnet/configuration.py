@@ -1,34 +1,32 @@
-"""BirdNET Program."""
+"""Acoupi-BirdNET program configuration."""
+
 import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Annotated, Optional
 
-from acoupi.system.constants import ACOUPI_HOME
+from acoupi.components.audio_recorder import MicrophoneConfig
+from acoupi.files import TEMP_PATH
+from acoupi.programs import NoUserPrompt
 from pydantic import BaseModel, Field
-
-"""Default paramaters for BirdNET Program"""
 
 
 class AudioConfig(BaseModel):
-    """Audio and microphone configuration parameters."""
+    """Audio recording configuration parameters."""
 
-    audio_duration: int = 15
+    audio_duration: int = 3
+    """Duration of each audio recording in seconds."""
 
-    samplerate: int = 48_000
+    recording_interval: int = 5
+    """Interval between each audio recording in seconds."""
 
-    audio_channels: int = 1
-
-    chunksize: int = 4096
-
-    device_index: int = 0
-
-    recording_interval: int = 0
+    chunksize: int = 8192
+    """Chunksize of audio recording."""
 
 
 class RecordingSchedule(BaseModel):
     """Recording schedule config."""
 
-    start_recording: datetime.time = datetime.time(hour=4, minute=0, second=0)
+    start_recording: datetime.time = datetime.time(hour=5, minute=30, second=0)
 
     end_recording: datetime.time = datetime.time(hour=20, minute=0, second=0)
 
@@ -36,39 +34,53 @@ class RecordingSchedule(BaseModel):
 class SaveRecordingFilter(BaseModel):
     """Recording saving options configuration."""
 
-    starttime: datetime.time = datetime.time(hour=5, minute=30, second=0)
+    starttime: datetime.time = datetime.time(hour=9, minute=30, second=0)
 
-    endtime: datetime.time = datetime.time(hour=7, minute=30, second=0)
+    endtime: datetime.time = datetime.time(hour=20, minute=30, second=0)
 
-    before_dawndusk_duration: int = 20
+    before_dawndusk_duration: Optional[int] = None
 
-    after_dawndusk_duration: int = 20
+    after_dawndusk_duration: Optional[int] = None
 
     frequency_duration: Optional[int] = None
 
     frequency_interval: Optional[int] = None
 
-    threshold: float = 0.8
+    saving_threshold: Optional[float] = 0.4
 
 
 class AudioDirectories(BaseModel):
     """Audio Recording Directories configuration."""
 
-    audio_dir_true: Path = ACOUPI_HOME / "storages" / "recordings" / "birds"
+    audio_dir: Path = Path.home() / "storages" / "recordings"
 
-    audio_dir_false: Path = ACOUPI_HOME / "storages" / "recordings" / "no_birds"
+    audio_dir_true: Path = Path.home() / "storages" / "recordings" / "bats"
+
+    audio_dir_false: Path = Path.home() / "storages" / "recordings" / "no_bats"
+
+
+class Summariser(BaseModel):
+    """Summariser configuration."""
+
+    interval: Optional[float] = None  # interval in minutes
+
+    low_band_threshold: Optional[float] = None
+
+    mid_band_threshold: Optional[float] = None
+
+    high_band_threshold: Optional[float] = None
 
 
 class MQTT_MessageConfig(BaseModel):
     """MQTT configuration to send messages."""
 
-    host: str = "localhost"
+    host: str = "default_host"
 
     port: int = 1884
 
-    client_password: str = "guest"
+    client_username: str = "guest_username"
 
-    client_username: str = "guest"
+    client_password: str = "guest_password"
 
     topic: str = "mqtt-topic"
 
@@ -82,29 +94,33 @@ class HTTP_MessageConfig(BaseModel):
 
     baseurl: str = "base-url"
 
-    client_password: str = "guest"
+    client_password: str = "guest_password"
 
-    client_id: str = "guest"
+    client_id: str = "guest_clientid"
 
-    api_key: str = "guest"
+    api_key: str = "guest_apikey"
 
     content_type: str = "application-json"
 
 
-class BirdNET_ConfigSchema(BaseModel):
+class BatDetect2_ConfigSchema(BaseModel):
     """BatDetect2 Configuration Schematic."""
 
-    name: str = "birdnet"
+    tmp_path: Annotated[Path, NoUserPrompt] = TEMP_PATH
 
-    threshold: float = 0.25
+    name: str = "batdetect2"
 
-    dbpath: Path = ACOUPI_HOME / "storages" / "acoupi.db"
+    detection_threshold: float = 0.2
 
-    dbpath_messages: Path = ACOUPI_HOME / "storages" / "acoupi_messages.db"
+    dbpath: Path = Path.home() / "storages" / "acoupi.db"
+
+    dbpath_messages: Path = Path.home() / "storages" / "acoupi_messages.db"
 
     timeformat: str = "%Y%m%d_%H%M%S"
 
     timezone: str = "Europe/London"
+
+    microphone_config: MicrophoneConfig
 
     audio_config: AudioConfig = Field(
         default_factory=AudioConfig,
@@ -120,6 +136,10 @@ class BirdNET_ConfigSchema(BaseModel):
 
     audio_directories: AudioDirectories = Field(
         default_factory=AudioDirectories,
+    )
+
+    summariser_config: Optional[Summariser] = Field(
+        default_factory=Summariser,
     )
 
     mqtt_message_config: Optional[MQTT_MessageConfig] = Field(
