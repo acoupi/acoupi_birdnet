@@ -10,9 +10,11 @@ authors = [
 dependencies = [
   "tflite>=2.10.0",
   "librosa>=0.10.1",
-  "birdnetlib>=0.13.1",
+  "birdnetlib>=0.17",
   "tflite-runtime>=2.14.0",
   "acoupi",
+  "numpy<2",
+  "resampy>=0.4.3",
 ]
 requires-python = ">=3.9,<3.12"
 readme = "README.md"
@@ -27,6 +29,7 @@ dev-dependencies = [
   "pytest>=7.4.3",
   "pyright>=1.1.363",
   "ruff>=0.4.4",
+  "flower>=2.0.1",
 ]
 
 [tool.uv.sources]
