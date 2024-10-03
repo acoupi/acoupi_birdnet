@@ -9,6 +9,8 @@ from birdnetlib.analyzer import Analyzer
 class BirdNET(types.Model):
     """Model that runs BirdNET."""
 
+    name = "BirdNET"
+
     def __init__(self, min_conf: float = 0.25):
         """Initialize the model."""
         self.analyzer = Analyzer()
@@ -29,7 +31,7 @@ class BirdNET(types.Model):
             path=recording.path,
             lat=deployment.latitude,
             lon=deployment.longitude,
-            date=recording.datetime.date(),
+            date=recording.created_on.date(),
             min_conf=self.min_conf,
         )
         birdnet_recording.analyze()
@@ -41,7 +43,7 @@ class BirdNET(types.Model):
             recording=recording,
             detections=[
                 data.Detection(
-                    detection_probability=detection["confidence"],
+                    detection_score=detection["confidence"],
                     location=data.BoundingBox.from_coordinates(
                         detection["start_time"],
                         0,
@@ -54,14 +56,14 @@ class BirdNET(types.Model):
                                 key="species",
                                 value=detection["scientific_name"],
                             ),
-                            classification_probability=detection["confidence"],
+                            confidence_score=detection["confidence"],
                         ),
                         data.PredictedTag(
                             tag=data.Tag(
                                 key="common name",
                                 value=detection["common_name"],
                             ),
-                            classification_probability=detection["confidence"],
+                            confidence_score=detection["confidence"],
                         ),
                     ],
                 )

@@ -1,4 +1,5 @@
 """Test Suite for Acoupi BirdNET Model."""
+
 import datetime
 from pathlib import Path
 
@@ -14,7 +15,7 @@ def test_birdnet():
         path=TEST_RECORDING,
         duration=2 * 60,
         samplerate=48_000,
-        datetime=datetime.datetime.now(),
+        created_on=datetime.datetime.now(),
         deployment=data.Deployment(
             name="test",
         ),
