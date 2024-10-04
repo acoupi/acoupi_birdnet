@@ -5,16 +5,16 @@ description = "An acoupi-compatible BirdNET model implementation"
 authors = [
   { name = "Aude Vuilliomenet", email = "aude.vuilliomenet.18@ucl.ac.uk" },
   { name = "Santiago Martinez", email = "santiago.balvanera.20@ucl.ac.uk" },
-  { name = "Aude Vuilli", email = "aude.vuilliomenet.18@ucl.ac.uk" },
 ]
 dependencies = [
   "tflite>=2.10.0",
   "librosa>=0.10.1",
   "birdnetlib>=0.17",
-  "tflite-runtime>=2.14.0",
   "acoupi",
   "numpy<2",
   "resampy>=0.4.3",
+  "tflite-runtime<2.14",
+  "tensorflow>=2.17.0",
 ]
 requires-python = ">=3.9,<3.12"
 readme = "README.md"
