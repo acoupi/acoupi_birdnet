@@ -51,7 +51,7 @@ When ready to start a program, use the `acoupi deployment start` command. This w
 
 After starting a deployment, it’s good practice to check the status of the program by running the `acoupi deployment status` command. This command provides a status report for system services, Celery workers, the program, and the overall deployment.
 
-!!! Example "CLI Command: viewing the status of *acoupi_batdetect2*"
+!!! Example "CLI Command: viewing the status of *acoupi_birdnet*"
 
     ```bash
     acoupi deployment status
@@ -61,12 +61,12 @@ After starting a deployment, it’s good practice to check the status of the pro
 
 Stopping the deployment can be necessary if you need to modify the program’s configuration, move the device to a different location, or fix any errors that have appeared in the logs. To halt the program, use the `acoupi deployment stop` command. Remember, once a deployment is stopped, it can only be restarted by running the acoupi deployment start command again.
 
-!!! Example "CLI Command: halting an acoupi program"
+!!! Example "CLI Command: halting deployment of *acoupi_birdnet*"
 
     ```bash
     acoupi deployment stop
     ```
-## Understanding _acoupi_batdetect2_ status
+## Understanding *acoupi_birdnet* status
 
 - __System Services__: Refer to the background processes that keep your acoupi installation running. These are the core services that manage the overall execution of the program and heartbeat monitoring. Two critical files handle these: the `acoupi.service` responsible for starting and stopping the program and the `acoupi-beat.service` that ensure the system's health at regular interval (hearbeats).
 
