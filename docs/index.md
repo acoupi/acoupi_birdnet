@@ -74,7 +74,7 @@ It integrates and standardises the entire bioacoustic monitoring workflow, facil
 
     Please note that *acoupi_birdnet* program is not responsible for the accuracy or reliability of predictions made by the BirdNET-Analyzer model. It is essential to understand the model's performance and limitations before using it in your project.
 
-    For more details on the BirdNET model, refer to the publication [Kahl S., et al., (2021) _BirdNET: A deep learning solution for avian diversity monitoring_](https://doi.org/10.1016/j.ecoinf.2021.101236). To learn more about using the BirdNET scores and outputs from the model, refer to [Wood, C.M. and Kahl, S., (2024) _Guidelines for appropriate use of BirdNET scores and other detector outputs_](https://connormwood.com/wp-content/uploads/2024/02/wood-kahl-2024-guidelines-for-birdnet-scores.pdf) 
+    For more details on the BirdNET model, refer to the publication [Kahl S., et al., (2021) _BirdNET: A deep learning solution for avian diversity monitoring_](https://doi.org/10.1016/j.ecoinf.2021.101236). To learn more about using the BirdNET scores and outputs from the model, refer to [Wood CM. and Kahl S., (2024) _Guidelines for appropriate use of BirdNET scores and other detector outputs_](https://connormwood.com/wp-content/uploads/2024/02/wood-kahl-2024-guidelines-for-birdnet-scores.pdf) 
 
 !!! Tip "Available _acoupi_ programs!"
 
