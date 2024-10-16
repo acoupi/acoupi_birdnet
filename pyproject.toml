@@ -3,31 +3,37 @@ name = "acoupi_birdnet"
 version = "0.1.0"
 description = "An acoupi-compatible BirdNET model implementation"
 authors = [
-    {name = "Aude Vuilliomenet", email = "aude.vuilliomenet.18@ucl.ac.uk"}, 
-    {name = "Santiago Martinez", email = "santiago.balvanera.20@ucl.ac.uk"},
-    { name = "Aude Vuilli", email = "aude.vuilliomenet.18@ucl.ac.uk" },
+  { name = "Aude Vuilliomenet", email = "aude.vuilliomenet.18@ucl.ac.uk" },
+  { name = "Santiago Martinez", email = "santiago.balvanera.20@ucl.ac.uk" },
 ]
 dependencies = [
-    "tflite>=2.10.0",
-    "librosa>=0.10.1",
-    "birdnetlib>=0.13.1",
-    "tflite-runtime>=2.14.0",
+  "tflite>=2.10.0",
+  "librosa>=0.10.1",
+  "birdnetlib>=0.17",
+  "acoupi",
+  "numpy<2",
+  "resampy>=0.4.3",
+  "tflite-runtime<2.14",
+  "tensorflow>=2.17.0",
 ]
 requires-python = ">=3.9,<3.12"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.rye]
+[tool.uv]
 dev-dependencies = [
-    "acoupi @ file://../acoupi",
-    "pytest>=7.4.3",
-    "pyright>=1.1.363",
-    "ruff>=0.4.4",
+  "pytest>=7.4.3",
+  "pyright>=1.1.363",
+  "ruff>=0.4.4",
+  "flower>=2.0.1",
 ]
+
+[tool.uv.sources]
+acoupi = { path = "../acoupi" }
 
 [tool.pyright]
 venvPath = "."
