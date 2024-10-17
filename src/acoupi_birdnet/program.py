@@ -35,7 +35,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
 
             self.add_task(
                 function=summary_task,
-                schedule=datetime.timedelta(minutes=config.summaries.interval),
+                schedule=datetime.timedelta(minutes=config.summariser_config.interval),
             )
 
     def configure_model(self, config):
