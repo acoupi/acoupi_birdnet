@@ -26,7 +26,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         # Setup all the elements from the DetectionProgram
         super().setup(config)
 
-        if config.summaries and config.summaries.interval:
+        if config.summariser_config and config.summariser_config.interval:
             summary_task = tasks.generate_summariser_task(
                 summarisers=self.get_summarisers(config),
                 message_store=self.message_store,
