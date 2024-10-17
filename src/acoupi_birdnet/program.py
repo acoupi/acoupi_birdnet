@@ -16,7 +16,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
 
     config_schema = BirdNET_ConfigSchema
 
-    def setup(self, config):
+    def setup(self, config: BirdNET_ConfigSchema):
         """Set up the BirdNET Program.
 
         This method initialises the birdnet program, registers the
@@ -24,9 +24,10 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         and performs any necessary setup for the program to run.
         """
         # Setup all the elements from the DetectionProgram
+        self.validate_dirs(config)
         super().setup(config)
 
-        if config.summariser_config and config.summariser_config.interval:
+        if config.summaries and config.summaries.interval:
             summary_task = tasks.generate_summariser_task(
                 summarisers=self.get_summarisers(config),
                 message_store=self.message_store,
@@ -35,7 +36,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
 
             self.add_task(
                 function=summary_task,
-                schedule=datetime.timedelta(minutes=config.summariser_config.interval),
+                schedule=datetime.timedelta(minutes=config.summaries.interval),
             )
 
     def configure_model(self, config):
@@ -234,3 +235,14 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
             )
 
         return saving_filters
+
+    def validate_dirs(self, config: BirdNET_ConfigSchema):
+        """Validate the directories used by the program.
+
+        This method ensures that the necessary directories for storing audio
+        and metadata exist. If they don't, it creates them.
+        """
+        if not config.recording_saving.true_dir.exists():
+            config.recording_saving.true_dir.mkdir(parents=True)
+        if not config.recording_saving.false_dir.exists():
+            config.recording_saving.false_dir.mkdir(parents=True)
