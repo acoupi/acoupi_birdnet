@@ -235,14 +235,3 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
             )
 
         return saving_filters
-
-    def validate_dirs(self, config: BirdNET_ConfigSchema):
-        """Validate the directories used by the program.
-
-        This method ensures that the necessary directories for storing audio
-        and metadata exist. If they don't, it creates them.
-        """
-        if not config.recording_saving.true_dir.exists():
-            config.recording_saving.true_dir.mkdir(parents=True)
-        if not config.recording_saving.false_dir.exists():
-            config.recording_saving.false_dir.mkdir(parents=True)
