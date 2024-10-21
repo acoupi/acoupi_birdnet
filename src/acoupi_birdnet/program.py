@@ -71,7 +71,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         summarisers = []
         summariser_config = config.summariser_config
 
-        if summariser_config.interval != 0.0:
+        if summariser_config.interval:
             summarisers.append(
                 components.StatisticsDetectionsSummariser(
                     store=self.store,  # type: ignore
@@ -80,9 +80,12 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
             )
 
         if (
-            summariser_config.interval != 0.0
+            summariser_config.interval
+            and summariser_config.low_band_threshold is not None
             and summariser_config.low_band_threshold != 0.0
+            and summariser_config.mid_band_threshold is not None
             and summariser_config.mid_band_threshold != 0.0
+            and summariser_config.high_band_threshold is not None
             and summariser_config.high_band_threshold != 0.0
         ):
             summarisers.append(
