@@ -27,7 +27,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         self.validate_dirs(config)
         super().setup(config)
 
-        if config.summaries and config.summaries.interval:
+        if config.summariser_config and config.summariser_config.interval:
             summary_task = tasks.generate_summariser_task(
                 summarisers=self.get_summarisers(config),
                 message_store=self.message_store,
@@ -36,7 +36,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
 
             self.add_task(
                 function=summary_task,
-                schedule=datetime.timedelta(minutes=config.summaries.interval),
+                schedule=datetime.timedelta(minutes=config.summariser_config.interval),
             )
 
     def configure_model(self, config):
