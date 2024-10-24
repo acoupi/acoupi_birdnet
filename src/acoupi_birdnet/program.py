@@ -24,7 +24,6 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         and performs any necessary setup for the program to run.
         """
         # Setup all the elements from the DetectionProgram
-        self.validate_dirs(config)
         super().setup(config)
 
         if config.summariser_config and config.summariser_config.interval:
@@ -49,7 +48,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         """
         return BirdNET()
 
-    def get_summarisers(self, config: BirdNET_ConfigSchema) -> list[types.Summariser]:
+    def get_summarisers(self, config) -> list[types.Summariser]:
         """Get the summarisers for the BirdNET Program.
 
         Parameters
@@ -117,12 +116,12 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         return [
             components.SaveRecordingManager(
                 dirpath=config.paths.recordings,
-                dirpath_true=config.paths.recordings / config.recording_saving.true_dir,
+                dirpath_true=config.paths.recordings / config.saving_managers.true_dir,
                 dirpath_false=config.paths.recordings
-                / config.recording_saving.false_dir,
-                timeformat=config.recording_saving.timeformat,
+                / config.saving_managers.false_dir,
+                timeformat=config.saving_managers.timeformat,
                 detection_threshold=config.model.detection_threshold,
-                saving_threshold=config.recording_saving.saving_threshold,
+                saving_threshold=config.saving_managers.saving_threshold,
             )
         ]
 
@@ -167,27 +166,27 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
             A list of recording filters for the birdnet program. If no
             saving filters are defined, the method will not save any recordings.
         """
-        if not config.recording_saving:
+        if not config.saving_filters:
             # No saving filters defined
             return []
 
         saving_filters = []
         timezone = pytz.timezone(config.timezone)
-        recording_saving = config.recording_saving
+        recording_saving = config.saving_filters
 
         # Main filter
         # Will only save recordings if the recording time is in the
         # interval defined by the start and end time.
         if (
-            recording_saving.filters is not None
-            and recording_saving.filters.starttime is not None
-            and recording_saving.filters.endtime is not None
+            recording_saving is not None
+            and recording_saving.starttime is not None
+            and recording_saving.endtime is not None
         ):
             saving_filters.append(
                 components.SaveIfInInterval(
                     interval=data.TimeInterval(
-                        start=recording_saving.filters.starttime,
-                        end=recording_saving.filters.endtime,
+                        start=recording_saving.starttime,
+                        end=recording_saving.endtime,
                     ),
                     timezone=timezone,
                 )
@@ -195,41 +194,41 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
 
         # Additional filters
         if (
-            recording_saving.filters is not None
-            and recording_saving.filters.frequency_duration != 0
-            and recording_saving.filters.frequency_interval != 0
+            recording_saving is not None
+            and recording_saving.frequency_duration != 0
+            and recording_saving.frequency_interval != 0
         ):
             # This filter will only save recordings at a frequency defined
             # by the duration and interval.
             saving_filters.append(
                 components.FrequencySchedule(
-                    duration=recording_saving.filters.frequency_duration,
-                    frequency=recording_saving.filters.frequency_interval,
+                    duration=recording_saving.frequency_duration,
+                    frequency=recording_saving.frequency_interval,
                 )
             )
 
         if (
-            recording_saving.filters is not None
-            and recording_saving.filters.before_dawndusk_duration != 0
+            recording_saving is not None
+            and recording_saving.before_dawndusk_duration != 0
         ):
             # This filter will only save recordings if the recording time
             # is before dawn or dusk.
             saving_filters.append(
                 components.Before_DawnDuskTimeInterval(
-                    duration=recording_saving.filters.before_dawndusk_duration,
+                    duration=recording_saving.before_dawndusk_duration,
                     timezone=timezone,
                 )
             )
 
         if (
-            recording_saving.filters is not None
-            and recording_saving.filters.after_dawndusk_duration != 0
+            recording_saving is not None
+            and recording_saving.after_dawndusk_duration != 0
         ):
             # This filter will only save recordings if the recording time
             # is after dawn or dusk.
             saving_filters.append(
                 components.After_DawnDuskTimeInterval(
-                    duration=recording_saving.filters.after_dawndusk_duration,
+                    duration=recording_saving.after_dawndusk_duration,
                     timezone=timezone,
                 )
             )

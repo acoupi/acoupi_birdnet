@@ -10,6 +10,20 @@ from acoupi.programs.templates import (
 from pydantic import BaseModel, Field
 
 
+class BirdNET_AudioConfig(AudioConfiguration):
+    """Audio Configuration schema."""
+
+    schedule_start: datetime.time = Field(
+        default=datetime.time(hour=4, minute=0, second=0),
+    )
+    """Start time for recording schedule."""
+
+    schedule_end: datetime.time = Field(
+        default=datetime.time(hour=23, minute=0, second=0),
+    )
+    """End time for recording schedule."""
+
+
 class ModelConfig(BaseModel):
     """Model output configuration."""
 
@@ -17,7 +31,7 @@ class ModelConfig(BaseModel):
     """Detection threshold for filtering model outputs."""
 
 
-class SavingFiltersConfig(BaseModel):
+class SaveRecordingFilter(BaseModel):
     """Saving Filters for audio recordings configuration."""
 
     starttime: datetime.time = datetime.time(hour=17, minute=0, second=0)
@@ -39,7 +53,7 @@ class SavingFiltersConfig(BaseModel):
     """Optional periodic interval in minutes to save recordings."""
 
 
-class SavingConfig(BaseModel):
+class SaveRecordingManager(BaseModel):
     """Saving configuration for audio recordings.
 
     (path to storage, name of files, saving threshold).
@@ -74,20 +88,6 @@ class Summariser(BaseModel):
     """Optional high band threshold to summarise detections."""
 
 
-class BirdNET_AudioConfig(AudioConfiguration):
-    """Audio Configuration schema."""
-
-    schedule_start: datetime.time = Field(
-        default=datetime.time(hour=4, minute=0, second=0),
-    )
-    """Start time for recording schedule."""
-
-    schedule_end: datetime.time = Field(
-        default=datetime.time(hour=23, minute=0, second=0),
-    )
-    """End time for recording schedule."""
-
-
 class BirdNET_ConfigSchema(DetectionProgramConfiguration):
     """BirdNET Program Configuration schema.
 
@@ -106,8 +106,15 @@ class BirdNET_ConfigSchema(DetectionProgramConfiguration):
     )
     """Model output configuration."""
 
-    recording_saving: SavingConfig = Field(default_factory=SavingConfig)
-    """Saving configuration for audio recordings."""
+    saving_filters: SaveRecordingFilter = Field(
+        default_factory=SaveRecordingFilter,
+    )
+    """Recording Saving Filters configuration for audio recordings."""
+
+    saving_managers: SaveRecordingManager = Field(
+        default_factory=SaveRecordingManager,
+    )
+    """Recording Saving Managers configuration for audio recordings."""
 
     summariser_config: Optional[Summariser] = Field(
         default_factory=Summariser,
