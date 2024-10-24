@@ -57,11 +57,6 @@ class SavingConfig(BaseModel):
     saving_threshold: float = 0.2
     """Minimum threshold of detections from a recording to save it."""
 
-    filters: Optional[SavingFiltersConfig] = Field(
-        default_factory=SavingFiltersConfig,
-    )
-    """Additional filters for saving recordings."""
-
 
 class Summariser(BaseModel):
     """Summariser configuration."""
