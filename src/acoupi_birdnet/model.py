@@ -2,8 +2,7 @@
 
 from acoupi import data
 from acoupi.components import types
-from birdnetlib import Recording
-from birdnetlib.analyzer import Analyzer
+from audioclass.models import birdnet
 
 
 class BirdNET(types.Model):
@@ -11,10 +10,21 @@ class BirdNET(types.Model):
 
     name = "BirdNET"
 
-    def __init__(self, min_conf: float = 0.25):
+    def __init__(self, min_conf: float = 0.25, common_name: bool = False):
         """Initialize the model."""
-        self.analyzer = Analyzer()
         self.min_conf = min_conf
+        self.common_name = common_name
+        self._model = None
+
+    @property
+    def model(self) -> birdnet.BirdNET:
+        """Get the BirdNET model."""
+        if self._model is None:
+            self._model = birdnet.BirdNET.load(
+                confidence_threshold=self.min_conf,
+                common_name=self.common_name,
+            )
+        return self._model
 
     def run(self, recording: data.Recording) -> data.ModelOutput:
         """Process the recording with BirdNET."""
@@ -24,18 +34,7 @@ class BirdNET(types.Model):
                 recording=recording,
             )
 
-        deployment = recording.deployment
-
-        birdnet_recording = Recording(
-            self.analyzer,
-            path=recording.path,
-            lat=deployment.latitude,
-            lon=deployment.longitude,
-            date=recording.created_on.date(),
-            min_conf=self.min_conf,
-        )
-        birdnet_recording.analyze()
-
+        predictions = self.model.process_file(recording.path)
         high_freq = recording.samplerate / 2
 
         return data.ModelOutput(
@@ -43,30 +42,24 @@ class BirdNET(types.Model):
             recording=recording,
             detections=[
                 data.Detection(
-                    detection_score=detection["confidence"],
+                    detection_score=predicted_tag.score,
                     location=data.BoundingBox.from_coordinates(
-                        detection["start_time"],
+                        prediction.clip.start_time,
                         0,
-                        detection["end_time"],
+                        prediction.clip.end_time,
                         high_freq,
                     ),
                     tags=[
                         data.PredictedTag(
                             tag=data.Tag(
-                                key="species",
-                                value=detection["scientific_name"],
+                                key=predicted_tag.tag.term.label,
+                                value=predicted_tag.tag.value,
                             ),
-                            confidence_score=detection["confidence"],
-                        ),
-                        data.PredictedTag(
-                            tag=data.Tag(
-                                key="common name",
-                                value=detection["common_name"],
-                            ),
-                            confidence_score=detection["confidence"],
-                        ),
+                            confidence_score=predicted_tag.score,
+                        )
                     ],
                 )
-                for detection in birdnet_recording.detections
+                for prediction in predictions
+                for predicted_tag in prediction.tags
             ],
         )
