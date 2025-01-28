@@ -2,7 +2,7 @@
 
 ## What is acoupi_birdnet?
 
-*acoupi_birdnet* is an open-source Python package that implement the [BirdNET-Analyzer](https://github.com/kahst/BirdNET-Analyzer?tab=readme-ov-file) bioacoustics deep-learning model on edge devices like the [Raspberry Pi](https://www.raspberrypi.org/), using the [_acoupi_](https://acoupi.github.io/acoupi) framework. The BirdNET-Analyzer DL model has been developed by the [K. Lisa Yang Center for Conservation Bioacoustics](https://www.birds.cornell.edu/ccb/) at the [Cornell Lab of Ornithology](https://www.birds.cornell.edu/home) in collaboration with [Chemnitz University of Technology](https://www.tu-chemnitz.de/index.html.en) to detect and classify more than 6000 bird species. 
+*acoupi_birdnet* is an open-source Python package that implement the [BirdNET-Analyzer](https://github.com/kahst/BirdNET-Analyzer?tab=readme-ov-file) bioacoustic deep-learning model on edge devices like the [Raspberry Pi](https://www.raspberrypi.org/), using the [_acoupi_](https://acoupi.github.io/acoupi) framework. The BirdNET-Analyzer DL model has been developed by the [K. Lisa Yang Center for Conservation Bioacoustics](https://www.birds.cornell.edu/ccb/) at the [Cornell Lab of Ornithology](https://www.birds.cornell.edu/home) in collaboration with [Chemnitz University of Technology](https://www.tu-chemnitz.de/index.html.en) to detect and classify more than 6000 bird species. 
 
 !!! Warning "What is the difference between _acoupi_ and *acoupi_birdnet*?"
 
@@ -19,7 +19,7 @@ It can be installed and tested on any Linux-based machines with Python version >
 
 - A Linux-based single-board computer such as the Raspberry Pi 4B.
 - A SD Card with the 64-bit Lite OS version installed.
-- An ultrasonic USB Microphone, such as an [AudioMoth USB Microphone](https://www.openacousticdevices.info/audiomoth) or an Ultramic 192K/250K.
+- An audible frequency range microphone, such as an [AudioMoth USB Microphone](https://www.openacousticdevices.info/audiomoth) or a Lavalier.
 
 
 ??? tip "Recommended Hardware"
@@ -29,7 +29,7 @@ It can be installed and tested on any Linux-based machines with Python version >
 
 ## Installation
 
-To install *acoupi_birdnet* on your embedded device, you will need to first have _acoupi_ installed on your device. Follow these steps to install both _acoupi_ and acoupi_birdnet:
+To install *acoupi_birdnet* on your embedded device, you will need to first have _acoupi_ installed on your device. Follow these steps to install both _acoupi_ and *acoupi_birdnet*:
 
 !!! Example "Step1: Install _acoupi_ and its dependencies"
 
