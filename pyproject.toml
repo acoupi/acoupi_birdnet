@@ -21,6 +21,11 @@ dev-dependencies = [
   "pyright>=1.1.363",
   "ruff>=0.4.4",
   "flower>=2.0.1",
+  "mkdocs>=1.6.1",
+  "mkdocs-material>=9.5.50",
+  "mkdocstrings[python]>=0.27.0",
+  "mkdocs-video>=1.5.0",
+  "mkdocs-click>=0.8.1",
 ]
 
 [tool.pyright]
