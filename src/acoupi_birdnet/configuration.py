@@ -10,7 +10,7 @@ from acoupi.programs.templates import (
 from pydantic import BaseModel, Field
 
 
-class BirdNET_AudioConfig(AudioConfiguration):
+class BirdNETAudioConfig(AudioConfiguration):
     """Audio Configuration schema."""
 
     schedule_start: datetime.time = Field(
@@ -88,7 +88,7 @@ class Summariser(BaseModel):
     """Optional high band threshold to summarise detections."""
 
 
-class BirdNET_ConfigSchema(DetectionProgramConfiguration):
+class BirdNETConfig(DetectionProgramConfiguration):
     """BirdNET Program Configuration schema.
 
     This schema extends the _acoupi_ `DetectionProgramConfiguration` to
@@ -96,8 +96,8 @@ class BirdNET_ConfigSchema(DetectionProgramConfiguration):
     model setup, file management, messaging, and summarisation.
     """
 
-    recording: BirdNET_AudioConfig = Field(
-        default_factory=BirdNET_AudioConfig,
+    recording: AudioConfiguration = Field(
+        default_factory=BirdNETAudioConfig,
     )
     """Audio recording configuration."""
 

@@ -7,16 +7,16 @@ from acoupi import components, data, tasks
 from acoupi.components import types
 from acoupi.programs.templates import DetectionProgram
 
-from acoupi_birdnet.configuration import BirdNET_ConfigSchema
+from acoupi_birdnet.configuration import BirdNETConfig
 from acoupi_birdnet.model import BirdNET
 
 
-class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
+class BirdNET_Program(DetectionProgram[BirdNETConfig]):
     """BirdNET Program Configuration."""
 
-    config_schema = BirdNET_ConfigSchema
+    config_schema = BirdNETConfig
 
-    def setup(self, config: BirdNET_ConfigSchema):
+    def setup(self, config: BirdNETConfig):
         """Set up the BirdNET Program.
 
         This method initialises the birdnet program, registers the
@@ -101,7 +101,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         return summarisers
 
     def get_file_managers(
-        self, config: BirdNET_ConfigSchema
+        self, config: BirdNETConfig
     ) -> list[types.RecordingSavingManager]:
         """Get the file managers for the BirdNET Program.
 
@@ -129,7 +129,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         ]
 
     def get_message_factories(
-        self, config: BirdNET_ConfigSchema
+        self, config: BirdNETConfig
     ) -> list[types.MessageBuilder]:
         """Get the message factories for the BirdNET Program.
 
@@ -153,7 +153,7 @@ class BirdNET_Program(DetectionProgram[BirdNET_ConfigSchema]):
         ]
 
     def get_recording_filters(
-        self, config: BirdNET_ConfigSchema
+        self, config: BirdNETConfig
     ) -> list[types.RecordingSavingFilter]:
         """Get the recording filters for the BirdNET Program.
 
