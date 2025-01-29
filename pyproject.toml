@@ -50,3 +50,9 @@ convention = "numpy"
 
 [tool.ruff.lint.isort]
 known-local-folder = ["src", "acoupi_birdnet"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/docs",
+]
