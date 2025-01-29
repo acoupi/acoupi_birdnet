@@ -7,6 +7,8 @@ To **reject and modify** a setting, press the keyboard letter __`n`__ and input 
 
 The video shows the configuration process for the _acoupi_birdnet_ program via the CLI.  
 
+![type:video](../video/acoupi_birdnet_configuration.mp4){: style='width: 100%'}
+
 ### Configuration Parameters
 
 The following is an example of how an _acoupi_birdnet_ program can be configured, shown in JSON format.
@@ -89,11 +91,10 @@ Detections made by the BirdNET model are transmitted to a remote server using ei
 
     The `detection_threshold` selects detections based on their confidence scores. Detections below this value will be disregarded, while those above or equal to this threshold will be saved. 
 
-    The confidence score obtained from running the BirdNET model on your audio recordings depends on the model's prediction accuracy and recall, as 
-    well as factors like your audio recording device, 
+    The confidence score obtained from running the BirdNET model on your audio recordings depends on the model's prediction accuracy and recall, as well as factors like your audio recording device, 
     recorder location, and environmenal conditions. 
 
-    We recommend familiarising yourself with the BirdNET model's precision and recall values. Refer to the publication by [Mac Aodha O., et al., (2002) _Towards a General Approach for Bat Echolocation Detection and Classification_](https://doi.org/10.1101/2022.12.14.520490) for more details. 
+    We recommend familiarising yourself with the BirdNET model's precision and recall values. Refer to the publication by [Wood CM. and Kahl S., (2024) _Guidelines for appropriate use of BirdNET scores and other detector outputs_](https://connormwood.com/wp-content/uploads/2024/02/wood-kahl-2024-guidelines-for-birdnet-scores.pdf) for more details. 
 
 ??? Tip "How to modify a value after setup?"
     

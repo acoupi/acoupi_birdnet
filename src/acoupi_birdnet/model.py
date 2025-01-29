@@ -6,7 +6,16 @@ from audioclass.models import birdnet
 
 
 class BirdNET(types.Model):
-    """Model that runs BirdNET."""
+    """BirdNET Model to analyse the audio recording.
+
+    This model uses the audioclass library to import the BirdNET model and
+    identify and classify birds vocalisation in audio recordings.
+
+    Attributes
+    ----------
+    name : str
+        The name of the model, by default "BirdNET".
+    """
 
     name = "BirdNET"
 
@@ -27,7 +36,18 @@ class BirdNET(types.Model):
         return self._model
 
     def run(self, recording: data.Recording) -> data.ModelOutput:
-        """Process the recording with BirdNET."""
+        """Run the model on the recording.
+
+        Parameters
+        ----------
+        recording : data.Recording
+            The audio recording to process.
+
+        Returns
+        -------
+        data.ModelOutput
+            The model output containing the detections.
+        """
         if not recording.path:
             return data.ModelOutput(
                 name_model="BirdNET",

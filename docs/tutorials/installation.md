@@ -9,7 +9,7 @@ We recommend the following hardware elements to install and run *acoupi_birdnet*
 
 - A Linux-based single-board computer such as the Raspberry Pi 4B.
 - A SD Card with 64-bit Lite OS version installed.
-- A USB ultrasonic Microphone such as an [AudioMoth USB Microphone](https://www.openacousticdevices.info/audiomoth) or an Ultramic 192K/250K.
+- An audible frequency range microphone, such as an [AudioMoth USB Microphone](https://www.openacousticdevices.info/audiomoth) or a Lavalier.
 
 ??? tip "Recommended Hardware"
 

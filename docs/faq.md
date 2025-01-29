@@ -15,9 +15,6 @@ The BirdNET model is updated regularly. The V2.4 can recognized more than 6,000 
 ## For who is *acoupi-birdnet*? 
 *acoupi-birdnet* is itended for researchers, practioners, and individuals interested in recording and classifying birds species on devices. 
 
-## What is the diffence between acoupi-birdnet and BirdNET-Pi? 
-....
-
 ## Can I configure *acoupi-birdnet*?
 
 Yes. Users can customised the configuration parameters of *acoupi-birdnet* to suit their own needs. See [tutorials/configuration](tutorials/configuration.md) to learn more about the configuration options.

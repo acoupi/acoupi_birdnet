@@ -18,7 +18,7 @@ After installing and configuring an *acoupi_birdnet* program, users can proceed 
 
 The video shows how a user can start, stop, and get the status of *acoupi_birdnet*.
 
-ADD VIDEO 
+![type:video](../video/acoupi_birdnet_deployment.mp4){: style='width: 100%'}
 
 ### Before starting a deployment
 
