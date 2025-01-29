@@ -6,11 +6,8 @@ authors = [
   { name = "Aude Vuilliomenet", email = "aude.vuilliomenet.18@ucl.ac.uk" },
   { name = "Santiago Martinez", email = "santiago.balvanera.20@ucl.ac.uk" },
 ]
-dependencies = [
-  "acoupi",
-  "audioclass[birdnet]>=0.2.2",
-]
-requires-python = ">=3.9,<3.12"
+dependencies = ["acoupi>=0.3.0", "audioclass[birdnet]>=0.2.2"]
+requires-python = ">=3.9,<3.13"
 readme = "README.md"
 license = { text = "MIT" }
 
@@ -25,9 +22,6 @@ dev-dependencies = [
   "ruff>=0.4.4",
   "flower>=2.0.1",
 ]
-
-[tool.uv.sources]
-acoupi = { path = "../acoupi" }
 
 [tool.pyright]
 venvPath = "."
