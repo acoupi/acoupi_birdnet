@@ -33,7 +33,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/p/acoupi_batdetect2
+      url: https://pypi.org/p/acoupi_birdnet
 
     permissions:
       id-token: write
@@ -81,7 +81,7 @@ jobs:
 
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/acoupi_batdetect2
+      url: https://test.pypi.org/p/acoupi_birdnet
 
     permissions:
       id-token: write
