@@ -1,6 +1,6 @@
 [project]
 name = "acoupi_birdnet"
-version = "0.1.0"
+version = "0.1.1"
 description = "An acoupi-compatible BirdNET model implementation"
 authors = [
   { name = "Aude Vuilliomenet", email = "aude.vuilliomenet.18@ucl.ac.uk" },
