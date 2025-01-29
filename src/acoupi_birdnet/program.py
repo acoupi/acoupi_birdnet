@@ -11,7 +11,7 @@ from acoupi_birdnet.configuration import BirdNETConfig
 from acoupi_birdnet.model import BirdNET
 
 
-class BirdNET_Program(DetectionProgram[BirdNETConfig]):
+class BirdNETProgram(DetectionProgram[BirdNETConfig]):
     """BirdNET Program Configuration."""
 
     config_schema = BirdNETConfig
